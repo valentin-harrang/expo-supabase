@@ -2,8 +2,7 @@ import { Slot, SplashScreen } from "expo-router";
 import { SessionProvider } from "@/providers/auth";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Alert, Platform } from "react-native";
-import "@/global.css";
+import { Platform } from "react-native";
 import { NAV_THEME } from "@/lib/constants";
 import { Theme, ThemeProvider } from '@react-navigation/native';
 import { useEffect, useState } from "react";
@@ -11,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { StatusBar } from "expo-status-bar";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { checkInternetConnection } from "@/services/network";
+import "@/global.css";
 
 const LIGHT_THEME: Theme = {
   dark: false,

@@ -1,68 +1,97 @@
 import { router } from "expo-router";
-import { Alert, Text, TextInput, View } from "react-native";
+import { Alert, View } from "react-native";
 import { useSession } from "@/providers/auth";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Text } from "@/components/ui/text";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RequiredField } from "@/components/RequiredField";
 
-export default function SignIn() {
+const SignIn = () => {
   const { signIn } = useSession();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const handleSignIn = async () => {
+    try {
+      const user = await signIn(email, password);
+
+      if (user) {
+        router.replace("/(app)/(drawer)/dashboard");
+      }
+      else {
+        Alert.alert("Sign In Error", "Invalid email or password");
+      }
+    } catch (error) {
+      Alert.alert("Sign In Error", (error as any)?.message);
+    }
+  }
+
+  const handleSignUp = () => {
+    router.replace("/(auth)/sign-up");
+  }
+
+  const handleForgotPassword = () => {
+    router.replace("/(auth)/forgot-password");
+  }
+
   return (
-    <View style={{ flex: 1, paddingTop: 100 }}>
-      <View style={{ width: 300, alignSelf: "center" }}>
-        <Text>Email</Text>
-        <TextInput
-          autoCapitalize="none"
-          spellCheck={false}
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        />
-        <Text style={{ marginTop: 16 }}>Password</Text>
-        <TextInput
-          autoCapitalize="none"
-          spellCheck={false}
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          style={{ height: 40, borderColor: "gray", borderWidth: 1 }}
-        />
+    <View className="justify-center items-center h-full">
+      <Card className='w-full max-w-sm'>
+        <CardHeader>
+          <CardTitle>Rejoindre le club</CardTitle>
+        </CardHeader>
 
-        <Text
-          style={{ marginTop: 16 }}
-          onPress={async () => {
-            try {
-              await signIn(email, password);
-              // Navigate after signing in. You may want to tweak this to ensure sign-in is
-              // successful before navigating.
-              router.replace("/(app)/(drawer)/dashboard");
-            } catch (error) {
-              Alert.alert("Sign In Error", (error as any)?.message);
-            }
-          }}
-        >
-          Sign In
-        </Text>
+        <CardContent className="gap-4">
+          <View className="gap-2">
+            <Label>Email <RequiredField /></Label>
+            <Input
+              autoCapitalize="none"
+              spellCheck={false}
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              placeholder="Ex : jean.dupont@gmail.com"
+            />
+          </View>
 
-        <Text
-          style={{ marginTop: 16 }}
-          onPress={async () => {
-            router.replace("/(auth)/sign-up");
-          }}
-        >
-          Go To Sign Up
-        </Text>
+          <View className="gap-2">
+            <Label>Mot de passe <RequiredField /></Label>
+            <Input
+              autoCapitalize="none"
+              spellCheck={false}
+              secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              placeholder="***********"
+            />
+          </View>
 
-        <Text
-          style={{ marginTop: 16 }}
-          onPress={async () => {
-            router.replace("/(auth)/forgot-password");
-          }}
-        >
-          Forgot Password
-        </Text>
-      </View>
+          <View className="gap-2">
+            <Button 
+              onPress={handleSignIn}>
+              <Text>
+                Connexion
+              </Text>
+            </Button>
+
+            <Button onPress={handleSignUp} variant="secondary">
+              <Text>
+                Créer un compte
+              </Text>
+            </Button>
+          </View>
+
+          <Button variant="link" onPress={handleForgotPassword} className="mt-4">
+            <Text>
+              Mot de passe oublié ?
+            </Text>
+          </Button>
+        </CardContent>
+      </Card>
     </View>
   );
 }
+
+export default SignIn;
