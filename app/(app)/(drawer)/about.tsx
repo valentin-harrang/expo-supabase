@@ -1,7 +1,6 @@
 import { Text, View } from 'react-native';
-
 import { Stack } from 'expo-router';
-import { supabaseClient } from '~/services/supabase-service';
+import { supabaseClient } from '@/services/supabase';
 import { useEffect, useState } from 'react';
 
 export default function AboutScreen() {

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
-  supabaseClient,
   login,
   createAccount,
   logout,
-} from "./supabase-service";
-import { User } from "@supabase/supabase-js";
+} from "@/services/supabase";
+import { AuthError, User } from "@supabase/supabase-js";
+import { supabaseClient } from "@/lib/supabase";
 
 const AuthContext = React.createContext<{
+  resetPassword: (email: string) => Promise<{
+      data: {};
+      error: null;
+  } | {
+      data: null;
+      error: AuthError;
+  }> | undefined;
   signIn: (
     email: string,
     password: string
@@ -21,6 +28,7 @@ const AuthContext = React.createContext<{
   isLoading: boolean;
   user?: User | undefined;
 }>({
+  resetPassword: () => undefined,
   signIn: () => undefined,
   signUp: () => undefined,
   signOut: () => null,
@@ -64,6 +72,17 @@ export function SessionProvider(props: React.PropsWithChildren) {
   return (
     <AuthContext.Provider
       value={{
+        resetPassword: async (email: string) => {
+          try {
+            const response = await supabaseClient.auth.resetPasswordForEmail(
+              email, {
+              redirectTo: `${process.env.EXPO_PUBLIC_APP_URL as string}/reset-password`,
+            });
+            return response;
+          }  catch (error) {
+            return { data: null, error: error as AuthError };
+          }
+        },
         signIn: async (email: string, password: string) => {
           try {
             // Perform sign-in logic here

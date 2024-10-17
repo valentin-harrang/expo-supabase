@@ -11,12 +11,11 @@ import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import {
   imagesFetcher,
-  StorageObject,
   uploadToSupabase,
-} from "~/services/supabase-service";
+} from "@/services/supabase";
 import { ScrollView } from "react-native-gesture-handler";
 import { RenderImage } from "./RenderImage";
-import { Tables } from "~/types/supabase";
+import { Tables } from "@/types/supabase";
 
 /**
  * Renders the TabImagesScreen component.

@@ -1,9 +1,8 @@
 import { Image } from "expo-image";
 import { useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { getImage } from "~/services/supabase-service";
-import { Tables } from "~/types/supabase";
-
+import { getImage } from "@/services/supabase";
+import { Tables } from "@/types/supabase";
 
 /**
  * Renders an image component with the specified width and height.

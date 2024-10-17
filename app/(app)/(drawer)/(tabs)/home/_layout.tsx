@@ -1,18 +1,15 @@
 import { DrawerToggleButton } from "@react-navigation/drawer";
-import { Redirect, Stack } from "expo-router";
-import { Drawer } from "expo-router/drawer";
+import { Stack } from "expo-router";
 
+const TabHomeLayout = () => (
+  <Stack
+    screenOptions={{
+      headerShown: true,
+      headerTitle: "Home",
+      title: "Home",
+      headerLeft: () => <DrawerToggleButton />,
+    }}
+  />
+);
 
-export default function TabHomeLayout() {
-
-  return (
-    <Stack
-      screenOptions={{
-        headerShown: true,
-        headerTitle: "Home",
-        title: "Home",
-        headerLeft: () => <DrawerToggleButton />,
-      }}
-    />
-  );
-}
+export default TabHomeLayout;

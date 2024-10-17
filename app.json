@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "Expo Supabase",
+    "slug": "expo-supabase",
     "version": "1.0.0",
     "scheme": "my-expo-app",
     "orientation": "portrait",

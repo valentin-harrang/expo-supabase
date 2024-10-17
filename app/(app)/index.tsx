@@ -1,8 +1,7 @@
-
 import { Redirect } from 'expo-router';
 
-export default function Index() {
-  return (
+const Index = () => (
    <Redirect href="/(app)/(drawer)/dashboard" />
-  );
-}
+);
+
+export default Index;

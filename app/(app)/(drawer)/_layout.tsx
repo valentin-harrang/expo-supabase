@@ -1,22 +1,16 @@
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import {
-  DrawerContent,
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { Drawer } from "expo-router/drawer";
-import { JSX, ReactNode, RefAttributes } from "react";
 import {
-  Button,
   Pressable,
-  ScrollView,
-  ScrollViewProps,
   Text,
   View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useSession } from "~/services/sb-ctx";
+import { useSession } from "@/providers/auth";
 
 const CustomDrawerContent = (props: any) => {
   // hooks for session and safe area insets
@@ -78,7 +72,6 @@ const CustomDrawerContent = (props: any) => {
 };
 
 const DrawerLayout = () => (
-  // <Drawer initialRouteName="/(app)/(drawer)/dashboard/">
   <Drawer
     initialRouteName="dashboard"
     drawerContent={(props: any) => <CustomDrawerContent {...props} />}

@@ -1,7 +1,6 @@
 import { router } from "expo-router";
 import { Alert, Text, TextInput, View } from "react-native";
-
-import { useSession } from "../services/sb-ctx";
+import { useSession } from "@/providers/auth";
 import { useState } from "react";
 
 export default function SignIn() {
@@ -49,10 +48,19 @@ export default function SignIn() {
         <Text
           style={{ marginTop: 16 }}
           onPress={async () => {
-            router.replace("/sign-up");
+            router.replace("/(auth)/sign-up");
           }}
         >
           Go To Sign Up
+        </Text>
+
+        <Text
+          style={{ marginTop: 16 }}
+          onPress={async () => {
+            router.replace("/(auth)/forgot-password");
+          }}
+        >
+          Forgot Password
         </Text>
       </View>
     </View>

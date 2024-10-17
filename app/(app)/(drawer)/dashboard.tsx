@@ -1,10 +1,10 @@
 import { Text, View } from 'react-native';
-
-import { useSession } from '../../../services/sb-ctx';
+import { useSession } from '@/providers/auth';
 import { Stack } from 'expo-router';
 
 export default function Dashboard() {
   const { signOut, user } = useSession();
+  
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Stack.Screen options={{ title: 'Home' }} />
